@@ -1,6 +1,7 @@
 from sanic import Sanic
 from sanic.response import json, html
 import os
+from views import DummyView
 
 
 app = Sanic("my app")
@@ -36,6 +37,14 @@ async def html_page(request):
 async def html_template(request):
     template = open(os.getcwd() + "/templates/index.html").read()
     return html(template)
+
+
+# class based views
+app.add_route(DummyView.as_view(), "/cbv-route")
+
+
+# class based views with params
+app.add_route(DummyView.as_view(), "/cbv-param")
 
 
 if __name__ == "__main__":
